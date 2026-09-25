@@ -1,0 +1,61 @@
+erDiagram
+    ORGANIZATIONS ||--|{ TEAMS : "owns"
+    ORGANIZATIONS ||--|{ USERS : "contains"
+    ORGANIZATIONS ||--|{ TICKETS : "owns"
+    TEAMS ||--|{ TEAM_MEMBERS : "includes"
+    USERS ||--|{ TEAM_MEMBERS : "joins"
+    USERS ||--|{ TICKETS : "creates"
+    USERS ||--o{ TICKETS : "assigned_to"
+    TICKETS ||--|{ COMMENTS : "contains"
+    TICKETS ||--|{ AUDIT_LOGS : "tracks"
+
+    ORGANIZATIONS {
+        uuid id PK
+        string name
+        string slug
+        datetime created_at
+    }
+    TEAMS {
+        uuid id PK
+        uuid organization_id FK
+        string name
+    }
+    TEAM_MEMBERS {
+        uuid team_id PK, FK
+        uuid user_id PK, FK
+        string role
+    }
+    USERS {
+        uuid id PK
+        uuid organization_id FK
+        string email
+        string hashed_password
+        string role
+        boolean is_active
+    }
+    TICKETS {
+        uuid id PK
+        uuid organization_id FK
+        uuid creator_id FK
+        uuid assignee_id FK
+        string title
+        string status
+        string priority
+        datetime created_at
+    }
+    COMMENTS {
+        uuid id PK
+        uuid ticket_id FK
+        uuid author_id FK
+        text body
+        boolean is_internal
+        datetime created_at
+    }
+    AUDIT_LOGS {
+        uuid id PK
+        uuid ticket_id FK
+        uuid actor_id FK
+        string action
+        jsonb changes
+        datetime created_at
+    }
