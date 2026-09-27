@@ -2,9 +2,12 @@
 OpsDesk API - Main Application Entrypoint
 """
 
-from starlette.types import Message
-from fastapi import FastAPI, status
+from fastapi import Depends, FastAPI, status
 from pydantic import BaseModel
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.db.session import get_db
 
 app = FastAPI(
     title="OpsDesk API",
@@ -19,7 +22,7 @@ class RootResponse(BaseModel):
 
 class HealthResponse(BaseModel):
     status: str
-    version: str
+    database: str
 
 @app.get("/",
 response_model=RootResponse,
@@ -41,8 +44,14 @@ async def read_root() -> RootResponse:
     summary="Application Healthcheck",
     )
 
-async def health_check() -> HealthResponse:
+async def health_check(db: AsyncSession = Depends(get_db)) -> HealthResponse:
     """
-    Liveness check used by container orchestrators and monitoring tools.
+    Checks API liveness and PostgreSQL database connectivity.
     """
-    return HealthResponse(status="ok", version="0.1.0")
+    try:
+        await db.execute(text("SELECT 1"))
+        db_status = "connected"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+    
+    return HealthResponse(status="ok", database=db_status)
