@@ -18,11 +18,17 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "local"
     DEBUG: bool = True
 
+    # PostgreSQL Credentials
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5432
     POSTGRES_DB: str
+
+    # JWT Authentication Settings
+    SECRET_KEY: str          
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     @computed_field
     @property

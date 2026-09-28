@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.db.base import Base
 
 # IMPORTANT: import all models so Alembic autogenerate sees them
-from app.users.models import User  # noqa: F401
+from app.users.users_models import User  # noqa: F401
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.ASYNC_DATABASE_URL)
