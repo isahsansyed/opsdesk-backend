@@ -14,3 +14,10 @@ class UserMessages:
 
 class GeneralMessages:
     UNEXPECTED_ERROR = "An unexpected error occurred."
+
+
+class OrganizationMessages:
+    NOT_FOUND = "Organization not found."
+    SLUG_EXISTS = "Organization slug is already taken."
+    MEMBER_EXISTS = "User is already a member of this organization."
+    MEMBER_NOT_FOUND = "User is not a member of this organization."

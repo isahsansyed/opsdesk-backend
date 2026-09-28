@@ -1,3 +1,5 @@
+# app/core/constants.py
+
 """Structured constants — no magic strings elsewhere in the codebase."""
 
 from enum import StrEnum
@@ -22,3 +24,10 @@ class AuthScheme(StrEnum):
 
 class HeaderName(StrEnum):
     WWW_AUTHENTICATE = "WWW-Authenticate"
+
+
+class UserRole(StrEnum):
+    ADMIN = "ADMIN"
+    MANAGER = "MANAGER"
+    AGENT = "AGENT"
+    CUSTOMER = "CUSTOMER"

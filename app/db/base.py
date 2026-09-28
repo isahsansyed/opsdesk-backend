@@ -1,3 +1,5 @@
+# app/db/base.py
+
 """
 Declarative Base for SQLAlchemy ORM Models
 """

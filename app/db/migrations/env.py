@@ -1,3 +1,4 @@
+# app/db/migrations/env.py
 import asyncio
 from logging.config import fileConfig
 
@@ -13,6 +14,12 @@ from app.db.base import Base
 
 # IMPORTANT: import all models so Alembic autogenerate sees them
 from app.users.users_models import User  # noqa: F401
+
+from app.users.users_models import User  # noqa: F401
+from app.organizations.organizations_models import (  # noqa: F401
+    Organization,
+    OrganizationMember,
+)
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.ASYNC_DATABASE_URL)

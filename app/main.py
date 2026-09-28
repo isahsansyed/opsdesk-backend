@@ -7,6 +7,8 @@ from app.auth.auth_router import router as auth_router
 from app.core.error_handlers import register_exception_handlers
 from app.db.session import get_db
 from app.users.users_router import router as users_router
+from app.organizations.organizations_router import router as organizations_router
+
 
 app = FastAPI(
     title="OpsDesk API",
@@ -17,6 +19,7 @@ app = FastAPI(
 register_exception_handlers(app)
 app.include_router(auth_router)
 app.include_router(users_router)
+app.include_router(organizations_router)
 
 
 class HealthResponse(BaseModel):
